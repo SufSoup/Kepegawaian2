@@ -1,0 +1,49 @@
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Composer
+/vendor/
+composer.lock
+
+# Node
+/node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.*.php
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# PHPUnit
+.phpunit.result.cache
+
+# Uploads / user generated files (review before pushing)
+/upload/
+uploads/
+public/upload/
+
+# Build / distribution
+dist/
+build/
+
+# Database files
+*.sql
+*.sqlite
+*.sqlite3
+
+# XAMPP / tmp
+xampp/
+tmp/
+
+# If you want to keep the upload/ folder content in the repo, remove it from this file
