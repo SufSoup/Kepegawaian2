@@ -4,10 +4,25 @@ ob_start();
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
+<<<<<<< HEAD
     <h3>Halaman Pengajuan Cuti</h3>
     <?php if ($user['role'] === 'HRD' || $user['role'] === 'Karyawan'): ?>
         <a href="/Kepegawaian/pengajuancuti/create" class="btn btn-primary">Tambah Pengajuan Cuti</a>
     <?php endif; ?>
+=======
+    <div>
+        <a href="/Kepegawaian/dashboard" class="btn btn-secondary btn-sm">← Kembali</a>
+        <h3 class="d-inline-block ms-2">Halaman Pengajuan Cuti</h3>
+    </div>
+    <div>
+        <?php if ($user['role'] === 'Supervisor'): ?>
+            <a href="/Kepegawaian/pengajuancuti/history" class="btn btn-info btn-sm me-2">📋 Lihat History</a>
+        <?php endif; ?>
+        <?php if ($user['role'] === 'HRD' || $user['role'] === 'Karyawan'): ?>
+            <a href="/Kepegawaian/pengajuancuti/create" class="btn btn-primary">Tambah Pengajuan Cuti</a>
+        <?php endif; ?>
+    </div>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 </div>
 
 <div class="card">
@@ -17,6 +32,7 @@ ob_start();
                 <thead>
                     <tr>
                         <th>ID</th>
+<<<<<<< HEAD
                         <?php if ($user['role'] === 'HRD'): ?>
                             <th>Nama Karyawan</th>
                         <?php endif; ?>
@@ -25,12 +41,25 @@ ob_start();
                         <th>Tanggal Selesai</th>
                         <th>Jumlah Hari</th>
                         <th>Status</th>
+=======
+                        <?php if ($user['role'] !== 'Karyawan'): ?>
+                            <th>Nama Karyawan</th>
+                        <?php endif; ?>
+                        <th>Jenis Cuti</th>
+                        <th>Tanggal Mulai</th>
+                        <th>Tanggal Selesai</th>
+                        <th>Hari</th>
+                        <th>Keterangan</th>
+                        <th>Status</th>
+                        <th>Disetujui Oleh</th>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($pengajuans)): ?>
                         <tr>
+<<<<<<< HEAD
                             <td colspan="<?= $user['role'] === 'HRD' ? '8' : '7' ?>" class="text-center">Tidak ada data pengajuan cuti</td>
                         </tr>
                     <?php else: ?>
@@ -44,6 +73,22 @@ ob_start();
                                 <td><?= date('d/m/Y', strtotime($p['Tgl_Awal'] ?? '2000-01-01')) ?></td>
                                 <td><?= date('d/m/Y', strtotime($p['Tgl_Akhir'] ?? '2000-01-01')) ?></td>
                                 <td><?= htmlspecialchars($p['Jumlah_Hari']) ?> hari</td>
+=======
+                            <td colspan="9" class="text-center">Tidak ada data pengajuan cuti</td>
+                        </tr>
+                    <?php else: ?>
+                        <?php $no = 0; foreach ($pengajuans as $p): $no++; ?>
+                            <tr>
+                                <td><?= $no ?></td>
+                                <?php if ($user['role'] !== 'Karyawan'): ?>
+                                    <td><?= htmlspecialchars($p['Nama_Lengkap'] ?? '-') ?></td>
+                                <?php endif; ?>
+                                <td><?= htmlspecialchars($p['Nama_Cuti'] ?? '-') ?></td>
+                                <td><?= date('d/m/Y', strtotime($p['Tgl_Awal'] ?? '2000-01-01')) ?></td>
+                                <td><?= date('d/m/Y', strtotime($p['Tgl_Akhir'] ?? '2000-01-01')) ?></td>
+                                <td><?= htmlspecialchars($p['Jumlah_Hari']) ?> hari</td>
+                                <td><?= htmlspecialchars(substr($p['Alasan'] ?? '-', 0, 50)) ?></td>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                                 <td>
                                     <?php
                                     $badgeClass = 'secondary';
@@ -55,6 +100,16 @@ ob_start();
                                     </span>
                                 </td>
                                 <td>
+<<<<<<< HEAD
+=======
+                                    <?php if ($p['Status_Pengajuan'] !== 'Pending'): ?>
+                                        <?= htmlspecialchars($p['Nama_Penyetuju'] ?? '-') ?>
+                                    <?php else: ?>\
+                                        <span class="text-muted">-</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                                     <?php if ($user['role'] === 'Supervisor' && $p['Status_Pengajuan'] === 'Pending'): ?>
                                         <a href="/Kepegawaian/pengajuancuti/approve/<?= $p['ID_Cuti'] ?>" class="btn btn-sm btn-success" onclick="return confirm('Setujui pengajuan cuti?')">Setujui</a>
                                         <a href="/Kepegawaian/pengajuancuti/reject/<?= $p['ID_Cuti'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Tolak pengajuan cuti?')">Tolak</a>

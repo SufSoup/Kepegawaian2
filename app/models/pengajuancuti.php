@@ -23,9 +23,16 @@ class PengajuanCuti extends Model {
     
     public function getByKaryawan($karyawanId) {
         $db = Database::getInstance();
+<<<<<<< HEAD
         $sql = "SELECT pc.*, mc.Nama_Cuti, mc.Tipe_Cuti
                 FROM pengajuan_cuti pc
                 LEFT JOIN master_cuti mc ON pc.ID_Master_Cuti = mc.ID_Master_Cuti
+=======
+        $sql = "SELECT pc.*, mc.Nama_Cuti, mc.Tipe_Cuti, ka.Nama_Lengkap as Nama_Penyetuju
+                FROM pengajuan_cuti pc
+                LEFT JOIN master_cuti mc ON pc.ID_Master_Cuti = mc.ID_Master_Cuti
+                LEFT JOIN karyawan ka ON pc.Approved_By = ka.ID_Karyawan
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                 WHERE pc.ID_Karyawan = :karyawan_id
                 ORDER BY pc.Tgl_Pengajuan DESC";
         $stmt = $db->query($sql, ['karyawan_id' => $karyawanId]);
@@ -62,6 +69,38 @@ class PengajuanCuti extends Model {
         $stmt = $db->query($sql, ['id' => $id]);
         return $stmt->fetch();
     }
+<<<<<<< HEAD
+=======
+    
+    /**
+     * Hitung total hari cuti yang sudah disetujui dalam tahun ini
+     */
+    public function getTotalHariCutiTahunIni($karyawanId) {
+        $db = Database::getInstance();
+        $tahunIni = date('Y');
+        
+        $sql = "SELECT SUM(Jumlah_Hari) as total_hari
+                FROM pengajuan_cuti
+                WHERE ID_Karyawan = :karyawan_id 
+                AND Status_Pengajuan = 'Disetujui'
+                AND YEAR(Tgl_Awal) = :tahun";
+        
+        $stmt = $db->query($sql, ['karyawan_id' => $karyawanId, 'tahun' => $tahunIni]);
+        $result = $stmt->fetch();
+        
+        return (int)($result['total_hari'] ?? 0);
+    }
+    
+    /**
+     * Check apakah karyawan masih punya jatah cuti
+     */
+    public function checkCutiJatah($karyawanId, $jumlahHari) {
+        $maksimalCutiTahunan = 30;
+        $totalCutiTahunIni = $this->getTotalHariCutiTahunIni($karyawanId);
+        
+        return ($totalCutiTahunIni + $jumlahHari) <= $maksimalCutiTahunan;
+    }
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 }
 
 

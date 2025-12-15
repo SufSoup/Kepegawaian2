@@ -3,6 +3,13 @@ $title = 'Tambah Pengajuan Cuti';
 ob_start();
 ?>
 
+<<<<<<< HEAD
+=======
+<div class="mb-3">
+    <a href="/Kepegawaian/pengajuancuti" class="btn btn-secondary btn-sm">← Kembali</a>
+</div>
+
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
@@ -10,6 +17,19 @@ ob_start();
                 <h4>Halaman Tambah Pengajuan Cuti</h4>
             </div>
             <div class="card-body">
+<<<<<<< HEAD
+=======
+                <!-- Info Jatah Cuti untuk Karyawan -->
+                <?php if ($user['role'] === 'Karyawan' && $cutiInfo): ?>
+                <div class="alert alert-info">
+                    <strong>Informasi Jatah Cuti Anda Tahun Ini:</strong><br>
+                    Total Disetujui: <strong><?= $cutiInfo['total_disetujui'] ?> hari</strong> | 
+                    Sisa Jatah: <strong><?= $cutiInfo['sisa_jatah'] ?> hari</strong> | 
+                    Maksimal: <strong><?= $cutiInfo['maksimal'] ?> hari</strong>
+                </div>
+                <?php endif; ?>
+                
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                 <form method="POST" action="/Kepegawaian/pengajuancuti/create">
                     <?php if ($user['role'] === 'HRD'): ?>
                         <div class="mb-3">
@@ -49,6 +69,7 @@ ob_start();
                     </div>
                     
                     <div class="mb-3">
+<<<<<<< HEAD
                         <label for="Keterangan" class="form-label">Keterangan</label>
                         <textarea class="form-control" id="Keterangan" name="Keterangan" rows="3"></textarea>
                     </div>
@@ -56,6 +77,19 @@ ob_start();
                     <div class="d-flex justify-content-between">
                         <a href="/Kepegawaian/pengajuancuti" class="btn btn-secondary">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan Data</button>
+=======
+                        <label for="Keterangan" class="form-label">Keterangan / Alasan</label>
+                        <textarea class="form-control" id="Keterangan" name="Keterangan" rows="3" placeholder="Jelaskan alasan pengajuan cuti Anda"></textarea>
+                    </div>
+                    
+                    <div class="alert alert-warning">
+                        <strong>Perhatian:</strong> Jika total pengajuan cuti Anda melebihi 30 hari dalam satu tahun, pengajuan akan otomatis ditolak oleh sistem.
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="/Kepegawaian/pengajuancuti" class="btn btn-secondary">Batal</a>
+                        <button type="submit" class="btn btn-primary">Simpan Pengajuan</button>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                     </div>
                 </form>
             </div>

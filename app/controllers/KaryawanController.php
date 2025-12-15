@@ -2,6 +2,10 @@
 
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../../helpers/Auth.php';
+<<<<<<< HEAD
+=======
+require_once __DIR__ . '/../../helpers/IDGenerator.php';
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 require_once __DIR__ . '/../models/karyawan.php';
 require_once __DIR__ . '/../models/department.php';
 require_once __DIR__ . '/../models/user.php';
@@ -11,6 +15,7 @@ class KaryawanController extends Controller {
     public function index() {
         Auth::requireAuth();
         
+<<<<<<< HEAD
         $karyawanModel = new Karyawan();
         $karyawans = $karyawanModel->getAllWithDepartment();
         
@@ -19,6 +24,48 @@ class KaryawanController extends Controller {
         $this->view('karyawan/index', [
             'karyawans' => $karyawans,
             'user' => $user
+=======
+        $user = Auth::user();
+        $karyawanModel = new Karyawan();
+        
+        // Jika Karyawan (bukan HRD/Supervisor), hanya tampilkan data diri sendiri
+        if ($user['role'] === 'Karyawan') {
+            $karyawans = [$karyawanModel->findWithDepartment($user['karyawan_id'])];
+        } else {
+            // HRD dan Supervisor bisa lihat semua
+            $karyawans = $karyawanModel->getAllWithDepartment();
+        }
+        
+        // Get sort parameter
+        $sort = $this->input('sort', 'default');
+        
+        if ($sort === 'nama_asc') {
+            usort($karyawans, function($a, $b) {
+                return strcmp($a['Nama_Lengkap'], $b['Nama_Lengkap']);
+            });
+        } elseif ($sort === 'nama_desc') {
+            usort($karyawans, function($a, $b) {
+                return strcmp($b['Nama_Lengkap'], $a['Nama_Lengkap']);
+            });
+        } elseif ($sort === 'departemen') {
+            usort($karyawans, function($a, $b) {
+                return strcmp($a['Nama_Departemen'] ?? '', $b['Nama_Departemen'] ?? '');
+            });
+        } elseif ($sort === 'tgl_masuk_terlama') {
+            usort($karyawans, function($a, $b) {
+                return strtotime($a['Tgl_Masuk']) - strtotime($b['Tgl_Masuk']);
+            });
+        } elseif ($sort === 'tgl_masuk_terbaru') {
+            usort($karyawans, function($a, $b) {
+                return strtotime($b['Tgl_Masuk']) - strtotime($a['Tgl_Masuk']);
+            });
+        }
+        
+        $this->view('karyawan/index', [
+            'karyawans' => $karyawans,
+            'user' => $user,
+            'sort' => $sort
+>>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
@@ -26,12 +73,52 @@ class KaryawanController extends Controller {
         Auth::requireRole('HRD');
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+<<<<<<< HEAD
             $data = [
                 'ID_Departemen' => $this->input('ID_Departemen'),
                 'Nama_Lengkap' => $this->input('Nama_Lengkap'),
                 'Tgl_Lahir' => $this->input('Tgl_Lahir'),
                 'Tgl_Masuk' => $this->input('Tgl_Masuk'),
                 'Email_Kantor' => $this->input('Email_Kantor'),
+=======
+            $namaLengkap = $this->input('Nama_Lengkap');
+            $role = $this->input('role', 'Karyawan');
+            
+            // Generate email berdasarkan role
+            $firstName = strtolower(explode(' ', $namaLengkap)[0]);
+            $emailBase = $firstName;
+            
+            switch ($role) {
+                case 'Supervisor':
+                    $emailKantor = $emailBase . '@supervisor.com';
+                    break;
+                case 'HRD':
+                    $emailKantor = $emailBase . '@hrd.com';
+                    break;
+                default:
+                    $emailKantor = $emailBase . '@karyawan.com';
+                    $role = 'Karyawan';
+                    break;
+            }
+            
+            // Cek apakah email sudah ada
+            $karyawanModel = new Karyawan();
+            $existing = $karyawanModel->getByEmail($emailKantor);
+            if ($existing) {
+                // Tambahkan suffix jika email sudah ada
+                $emailKantor = $emailBase . time() . '@' . (
+                    $role === 'Supervisor' ? 'supervisor.com' :
+                    ($role === 'HRD' ? 'hrd.com' : 'karyawan.com')
+                );
+            }
+            
+            $data = [
+                'ID_Departemen' => $this->input('ID_Departemen'),
+                'Nama_Lengkap' => $namaLengkap,
+                'Tgl_Lahir' => $this->input('Tgl_Lahir'),
+                'Tgl_Masuk' => $this->input('Tgl_Masuk'),
+                'Email_Kantor' => $emailKantor,
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                 'Alamat' => $this->input('Alamat'),
                 'Status_Kerja' => $this->input('Status_Kerja', 'Aktif')
             ];
@@ -39,10 +126,33 @@ class KaryawanController extends Controller {
             $karyawanModel = new Karyawan();
             $karyawanId = $karyawanModel->create($data);
             
+<<<<<<< HEAD
+=======
+            // Buat user login secara otomatis
+            $userModel = new User();
+            $password = 'password123'; // Default password untuk karyawan baru
+            $userData = [
+                'ID_Karyawan' => $karyawanId,
+                'Username' => $emailKantor,
+                'Password' => password_hash($password, PASSWORD_BCRYPT),
+                'Role' => $role,
+                'Status_Login' => 'Aktif'
+            ];
+            
+            $userModel->create($userData);
+            
+>>>>>>> 29c4acf (initial commit project kepegawaian)
             // Update jumlah karyawan di departemen
             $departmentModel = new Department();
             $departmentModel->updateJumlahKaryawan($data['ID_Departemen']);
             
+<<<<<<< HEAD
+=======
+            // Simpan info password untuk ditampilkan
+            $_SESSION['new_user_password'] = $password;
+            $_SESSION['new_user_email'] = $emailKantor;
+            
+>>>>>>> 29c4acf (initial commit project kepegawaian)
             $this->redirect('/Kepegawaian/karyawan');
         }
         
@@ -120,6 +230,16 @@ class KaryawanController extends Controller {
                 $departemenId = $karyawan['ID_Departemen'];
                 $karyawanModel->delete($id);
                 
+<<<<<<< HEAD
+=======
+                // Hapus user juga
+                $userModel = new User();
+                $userData = $userModel->getByKaryawanId($id);
+                if ($userData) {
+                    $userModel->delete($userData['ID_User']);
+                }
+                
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                 // Update jumlah karyawan
                 $departmentModel = new Department();
                 $departmentModel->updateJumlahKaryawan($departemenId);

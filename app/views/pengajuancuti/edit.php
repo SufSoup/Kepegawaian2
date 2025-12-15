@@ -3,6 +3,13 @@ $title = 'Edit Pengajuan Cuti';
 ob_start();
 ?>
 
+<<<<<<< HEAD
+=======
+<div class="mb-3">
+    <a href="/Kepegawaian/pengajuancuti" class="btn btn-secondary btn-sm">← Kembali</a>
+</div>
+
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">

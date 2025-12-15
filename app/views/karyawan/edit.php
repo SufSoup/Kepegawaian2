@@ -3,6 +3,13 @@ $title = 'Edit Karyawan';
 ob_start();
 ?>
 
+<<<<<<< HEAD
+=======
+<div class="mb-3">
+    <a href="/Kepegawaian/karyawan" class="btn btn-secondary btn-sm">← Kembali</a>
+</div>
+
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
@@ -70,7 +77,11 @@ ob_start();
                     </div>
                     
                     <div class="d-flex justify-content-between">
+<<<<<<< HEAD
                         <a href="/Kepegawaian/karyawan" class="btn btn-secondary">Kembali</a>
+=======
+                        <a href="/Kepegawaian/karyawan" class="btn btn-secondary">Batal</a>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                         <button type="submit" class="btn btn-primary">Simpan Edit</button>
                     </div>
                 </form>

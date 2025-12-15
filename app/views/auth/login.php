@@ -16,8 +16,14 @@ ob_start();
                 
                 <form method="POST" action="/Kepegawaian/login">
                     <div class="mb-3">
+<<<<<<< HEAD
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
+=======
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="username" placeholder="nama@supervisor.com / nama@karyawan.com / nama@hrd.com" required>
+                        <small class="form-text text-muted">Gunakan email sesuai dengan role Anda</small>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                     </div>
                     
                     <div class="mb-3">
@@ -29,7 +35,11 @@ ob_start();
                 </form>
                 
                 <div class="mt-3 text-center">
+<<<<<<< HEAD
                     <small class="text-muted">Default: username: hrd, password: admin123</small>
+=======
+                    <small class="text-muted"></small>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                 </div>
             </div>
         </div>

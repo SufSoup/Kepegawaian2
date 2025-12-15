@@ -32,9 +32,15 @@ ob_start();
                             <td colspan="<?= $user['role'] === 'HRD' ? '6' : '5' ?>" class="text-center">Tidak ada data slip gaji</td>
                         </tr>
                     <?php else: ?>
+<<<<<<< HEAD
                         <?php foreach ($slipGajis as $sg): ?>
                             <tr>
                                 <td><?= htmlspecialchars($sg['ID_Slip']) ?></td>
+=======
+                        <?php $no = 0; foreach ($slipGajis as $sg): $no++; ?>
+                            <tr>
+                                <td><?= $no ?></td>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                                 <?php if ($user['role'] === 'HRD'): ?>
                                     <td><?= htmlspecialchars($sg['Nama_Lengkap']) ?></td>
                                 <?php endif; ?>

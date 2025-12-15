@@ -3,6 +3,13 @@ $title = 'Tambah Karyawan';
 ob_start();
 ?>
 
+<<<<<<< HEAD
+=======
+<div class="mb-3">
+    <a href="/Kepegawaian/karyawan" class="btn btn-secondary btn-sm">← Kembali</a>
+</div>
+
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
@@ -31,6 +38,7 @@ ob_start();
                         </div>
                     </div>
                     
+<<<<<<< HEAD
                     <div class="mb-3">
                         <label for="Email_Kantor" class="form-label">Email Kantor <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" id="Email_Kantor" name="Email_Kantor" required>
@@ -44,6 +52,31 @@ ob_start();
                                 <option value="<?= $dept['ID_Departemen'] ?>"><?= htmlspecialchars($dept['Jabatan']) ?></option>
                             <?php endforeach; ?>
                         </select>
+=======
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+                                <select class="form-control" id="role" name="role" required>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Supervisor">Supervisor</option>
+                                    <option value="HRD">HRD</option>
+                                </select>
+                                <small class="form-text text-muted">Email akan otomatis dibuat berdasarkan role</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="ID_Departemen" class="form-label">Departemen <span class="text-danger">*</span></label>
+                                <select class="form-control" id="ID_Departemen" name="ID_Departemen" required>
+                                    <option value="">Pilih Departemen</option>
+                                    <?php foreach ($departments as $dept): ?>
+                                        <option value="<?= $dept['ID_Departemen'] ?>"><?= htmlspecialchars($dept['Jabatan']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                     </div>
                     
                     <div class="mb-3">
@@ -60,8 +93,17 @@ ob_start();
                         </select>
                     </div>
                     
+<<<<<<< HEAD
                     <div class="d-flex justify-content-between">
                         <a href="/Kepegawaian/karyawan" class="btn btn-secondary">Kembali</a>
+=======
+                    <div class="alert alert-info">
+                        <strong>Informasi Penting:</strong> Setelah karyawan ditambahkan, akun login akan otomatis dibuat dengan format email sesuai role. Password akan di-generate secara otomatis.
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="/Kepegawaian/karyawan" class="btn btn-secondary">Batal</a>
+>>>>>>> 29c4acf (initial commit project kepegawaian)
                         <button type="submit" class="btn btn-primary">Simpan Data</button>
                     </div>
                 </form>

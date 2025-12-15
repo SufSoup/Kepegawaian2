@@ -38,6 +38,11 @@ class PengajuanCutiController extends Controller {
             $this->redirect('/Kepegawaian/pengajuancuti');
         }
         
+<<<<<<< HEAD
+=======
+        $errorMessage = '';
+        
+>>>>>>> 29c4acf (initial commit project kepegawaian)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $karyawanId = $user['role'] === 'HRD' 
                 ? $this->input('ID_Karyawan') 
@@ -56,6 +61,32 @@ class PengajuanCutiController extends Controller {
             $tglAkhirDateTime = new DateTime($tglAkhir);
             $jumlahHari = $tglAwalDateTime->diff($tglAkhirDateTime)->days + 1;
             
+<<<<<<< HEAD
+=======
+            // Check jatah cuti tahunan (maksimal 30 hari)
+            $pengajuanCutiModel = new PengajuanCuti();
+            if (!$pengajuanCutiModel->checkCutiJatah($karyawanId, $jumlahHari)) {
+                $totalCutiTahunIni = $pengajuanCutiModel->getTotalHariCutiTahunIni($karyawanId);
+                $sisaCuti = 30 - $totalCutiTahunIni;
+                
+                // Auto reject jika melebihi jatah
+                $data = [
+                    'ID_Karyawan' => $karyawanId,
+                    'ID_Master_Cuti' => $this->input('ID_Master_Cuti'),
+                    'Tgl_Awal' => $tglAwal,
+                    'Tgl_Akhir' => $tglAkhir,
+                    'Jumlah_Hari' => $jumlahHari,
+                    'Status_Pengajuan' => 'Ditolak',
+                    'Keterangan_Penolakan' => "Melebihi jatah cuti tahunan. Sisa cuti: $sisaCuti hari",
+                    'Tgl_Persetujuan' => date('Y-m-d H:i:s'),
+                    'Alasan' => $this->input('Keterangan')
+                ];
+                $pengajuanCutiModel->create($data);
+                $this->redirect('/Kepegawaian/pengajuancuti');
+                return;
+            }
+            
+>>>>>>> 29c4acf (initial commit project kepegawaian)
             $data = [
                 'ID_Karyawan' => $karyawanId,
                 'ID_Master_Cuti' => $this->input('ID_Master_Cuti'),
@@ -67,7 +98,10 @@ class PengajuanCutiController extends Controller {
                 'Alasan' => $this->input('Keterangan')
             ];
             
+<<<<<<< HEAD
             $pengajuanCutiModel = new PengajuanCuti();
+=======
+>>>>>>> 29c4acf (initial commit project kepegawaian)
             $pengajuanCutiModel->create($data);
             
             $this->redirect('/Kepegawaian/pengajuancuti');
@@ -79,10 +113,31 @@ class PengajuanCutiController extends Controller {
         $karyawanModel = new Karyawan();
         $karyawans = $user['role'] === 'HRD' ? $karyawanModel->getAllWithDepartment() : [];
         
+<<<<<<< HEAD
         $this->view('pengajuancuti/create', [
             'masterCutis' => $masterCutis,
             'karyawans' => $karyawans,
             'user' => $user
+=======
+        // Get info cuti karyawan untuk ditampilkan
+        $pengajuanCutiModel = new PengajuanCuti();
+        $cutiInfo = null;
+        if ($user['role'] === 'Karyawan') {
+            $totalCutiTahunIni = $pengajuanCutiModel->getTotalHariCutiTahunIni($user['karyawan_id']);
+            $cutiInfo = [
+                'total_disetujui' => $totalCutiTahunIni,
+                'sisa_jatah' => 30 - $totalCutiTahunIni,
+                'maksimal' => 30
+            ];
+        }
+        
+        $this->view('pengajuancuti/create', [
+            'masterCutis' => $masterCutis,
+            'karyawans' => $karyawans,
+            'user' => $user,
+            'cutiInfo' => $cutiInfo,
+            'errorMessage' => $errorMessage
+>>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
@@ -213,5 +268,37 @@ class PengajuanCutiController extends Controller {
             'user' => Auth::user()
         ]);
     }
+<<<<<<< HEAD
+=======
+    
+    public function history() {
+        Auth::requireRole('Supervisor');
+        
+        // Get history pengajuan cuti yang sudah disetujui atau ditolak
+        $pengajuanCutiModel = new PengajuanCuti();
+        $db = Database::getInstance();
+        
+        $sql = "SELECT pc.*, 
+                k.Nama_Lengkap as Pengaju, 
+                ka.Nama_Lengkap as Penyetuju,
+                mc.Nama_Cuti, 
+                d.Jabatan as Nama_Departemen
+                FROM pengajuan_cuti pc
+                LEFT JOIN karyawan k ON pc.ID_Karyawan = k.ID_Karyawan
+                LEFT JOIN karyawan ka ON pc.Approved_By = ka.ID_Karyawan
+                LEFT JOIN master_cuti mc ON pc.ID_Master_Cuti = mc.ID_Master_Cuti
+                LEFT JOIN departemen d ON k.ID_Departemen = d.ID_Departemen
+                WHERE pc.Status_Pengajuan IN ('Disetujui', 'Ditolak')
+                ORDER BY pc.Tgl_Persetujuan DESC";
+        
+        $stmt = $db->query($sql);
+        $histories = $stmt->fetchAll();
+        
+        $this->view('pengajuancuti/history', [
+            'histories' => $histories,
+            'user' => Auth::user()
+        ]);
+    }
+>>>>>>> 29c4acf (initial commit project kepegawaian)
 }
 

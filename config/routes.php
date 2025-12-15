@@ -36,6 +36,10 @@ return [
         '/pengajuancuti/delete/{id}' => ['PengajuanCutiController', 'delete'],
         '/pengajuancuti/approve/{id}' => ['PengajuanCutiController', 'approve'],
         '/pengajuancuti/reject/{id}' => ['PengajuanCutiController', 'reject'],
+<<<<<<< HEAD
+=======
+        '/pengajuancuti/history' => ['PengajuanCutiController', 'history'],
+>>>>>>> 29c4acf (initial commit project kepegawaian)
         
         // Slip Gaji routes
         '/slipgaji' => ['SlipGajiController', 'index'],
