@@ -38,11 +38,8 @@ class PengajuanCutiController extends Controller {
             $this->redirect('/Kepegawaian/pengajuancuti');
         }
         
-<<<<<<< HEAD
-=======
         $errorMessage = '';
         
->>>>>>> 29c4acf (initial commit project kepegawaian)
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $karyawanId = $user['role'] === 'HRD' 
                 ? $this->input('ID_Karyawan') 
@@ -61,8 +58,6 @@ class PengajuanCutiController extends Controller {
             $tglAkhirDateTime = new DateTime($tglAkhir);
             $jumlahHari = $tglAwalDateTime->diff($tglAkhirDateTime)->days + 1;
             
-<<<<<<< HEAD
-=======
             // Check jatah cuti tahunan (maksimal 30 hari)
             $pengajuanCutiModel = new PengajuanCuti();
             if (!$pengajuanCutiModel->checkCutiJatah($karyawanId, $jumlahHari)) {
@@ -86,7 +81,6 @@ class PengajuanCutiController extends Controller {
                 return;
             }
             
->>>>>>> 29c4acf (initial commit project kepegawaian)
             $data = [
                 'ID_Karyawan' => $karyawanId,
                 'ID_Master_Cuti' => $this->input('ID_Master_Cuti'),
@@ -98,10 +92,6 @@ class PengajuanCutiController extends Controller {
                 'Alasan' => $this->input('Keterangan')
             ];
             
-<<<<<<< HEAD
-            $pengajuanCutiModel = new PengajuanCuti();
-=======
->>>>>>> 29c4acf (initial commit project kepegawaian)
             $pengajuanCutiModel->create($data);
             
             $this->redirect('/Kepegawaian/pengajuancuti');
@@ -113,12 +103,6 @@ class PengajuanCutiController extends Controller {
         $karyawanModel = new Karyawan();
         $karyawans = $user['role'] === 'HRD' ? $karyawanModel->getAllWithDepartment() : [];
         
-<<<<<<< HEAD
-        $this->view('pengajuancuti/create', [
-            'masterCutis' => $masterCutis,
-            'karyawans' => $karyawans,
-            'user' => $user
-=======
         // Get info cuti karyawan untuk ditampilkan
         $pengajuanCutiModel = new PengajuanCuti();
         $cutiInfo = null;
@@ -137,7 +121,6 @@ class PengajuanCutiController extends Controller {
             'user' => $user,
             'cutiInfo' => $cutiInfo,
             'errorMessage' => $errorMessage
->>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
@@ -268,9 +251,17 @@ class PengajuanCutiController extends Controller {
             'user' => Auth::user()
         ]);
     }
-<<<<<<< HEAD
-=======
     
+    
+    public function deleteAll() {
+        Auth::requireRole('HRD');
+        
+        $pengajuanCutiModel = new PengajuanCuti();
+        $pengajuanCutiModel->deleteAll();
+        
+        $this->redirect('/Kepegawaian/pengajuancuti');
+    }
+
     public function history() {
         Auth::requireRole('Supervisor');
         
@@ -299,6 +290,5 @@ class PengajuanCutiController extends Controller {
             'user' => Auth::user()
         ]);
     }
->>>>>>> 29c4acf (initial commit project kepegawaian)
 }
 

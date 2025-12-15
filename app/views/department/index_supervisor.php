@@ -3,8 +3,9 @@ $title = 'Data Departemen';
 ob_start();
 ?>
 
-<div class="mb-3">
+<div class="mb-3 d-flex justify-content-between align-items-center">
     <h3>Halaman Departemen</h3>
+    <a href="<?= BASE_URL ?>/supervisor-dashboard" class="btn btn-secondary btn-sm">← Kembali</a>
 </div>
 
 <div class="card">

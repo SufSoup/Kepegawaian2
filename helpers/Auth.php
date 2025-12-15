@@ -9,19 +9,6 @@ class Auth {
             session_start();
         }
     }
-    
-<<<<<<< HEAD
-    public static function login($username, $password) {
-        self::startSession();
-        
-        $db = Database::getInstance();
-        $sql = "SELECT u.*, k.Nama_Lengkap, k.Email_Kantor, k.ID_Departemen 
-                FROM user u 
-                LEFT JOIN karyawan k ON u.ID_Karyawan = k.ID_Karyawan 
-                WHERE u.Username = :username AND u.Status_Login = 'Aktif'";
-        
-        $stmt = $db->query($sql, ['username' => $username]);
-=======
     public static function login($email, $password) {
         self::startSession();
         
@@ -33,7 +20,6 @@ class Auth {
                 WHERE (u.Username = :email OR k.Email_Kantor = :email2) AND u.Status_Login = 'Aktif'";
         
         $stmt = $db->query($sql, ['email' => $email, 'email2' => $email]);
->>>>>>> 29c4acf (initial commit project kepegawaian)
         $user = $stmt->fetch();
         
         if ($user && password_verify($password, $user['Password'])) {

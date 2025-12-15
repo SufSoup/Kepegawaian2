@@ -26,15 +26,9 @@ ob_start();
                             <td colspan="5" class="text-center">Tidak ada data departemen</td>
                         </tr>
                     <?php else: ?>
-<<<<<<< HEAD
-                        <?php foreach ($departments as $dept): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($dept['ID_Departemen']) ?></td>
-=======
                         <?php $no = 0; foreach ($departments as $dept): $no++; ?>
                             <tr>
                                 <td><?= $no ?></td>
->>>>>>> 29c4acf (initial commit project kepegawaian)
                                 <td><?= htmlspecialchars($dept['Jabatan']) ?></td>
                                 <td><?= htmlspecialchars($dept['Jumlah_Karyawan']) ?></td>
                                 <td>

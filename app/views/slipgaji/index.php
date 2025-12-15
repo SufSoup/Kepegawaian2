@@ -4,7 +4,10 @@ ob_start();
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Halaman Slip Gaji</h3>
+    <div>
+        <a href="/Kepegawaian/dashboard" class="btn btn-secondary btn-sm">← Kembali</a>
+        <h3 class="d-inline-block ms-2">Halaman Slip Gaji</h3>
+    </div>
     <?php if ($user['role'] === 'HRD'): ?>
         <a href="/Kepegawaian/slipgaji/create" class="btn btn-primary">Tambah Slip Gaji</a>
     <?php endif; ?>
@@ -32,15 +35,9 @@ ob_start();
                             <td colspan="<?= $user['role'] === 'HRD' ? '6' : '5' ?>" class="text-center">Tidak ada data slip gaji</td>
                         </tr>
                     <?php else: ?>
-<<<<<<< HEAD
-                        <?php foreach ($slipGajis as $sg): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($sg['ID_Slip']) ?></td>
-=======
                         <?php $no = 0; foreach ($slipGajis as $sg): $no++; ?>
                             <tr>
                                 <td><?= $no ?></td>
->>>>>>> 29c4acf (initial commit project kepegawaian)
                                 <?php if ($user['role'] === 'HRD'): ?>
                                     <td><?= htmlspecialchars($sg['Nama_Lengkap']) ?></td>
                                 <?php endif; ?>

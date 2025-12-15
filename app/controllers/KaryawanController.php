@@ -2,10 +2,7 @@
 
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../../helpers/Auth.php';
-<<<<<<< HEAD
-=======
 require_once __DIR__ . '/../../helpers/IDGenerator.php';
->>>>>>> 29c4acf (initial commit project kepegawaian)
 require_once __DIR__ . '/../models/karyawan.php';
 require_once __DIR__ . '/../models/department.php';
 require_once __DIR__ . '/../models/user.php';
@@ -15,16 +12,6 @@ class KaryawanController extends Controller {
     public function index() {
         Auth::requireAuth();
         
-<<<<<<< HEAD
-        $karyawanModel = new Karyawan();
-        $karyawans = $karyawanModel->getAllWithDepartment();
-        
-        $user = Auth::user();
-        
-        $this->view('karyawan/index', [
-            'karyawans' => $karyawans,
-            'user' => $user
-=======
         $user = Auth::user();
         $karyawanModel = new Karyawan();
         
@@ -65,7 +52,6 @@ class KaryawanController extends Controller {
             'karyawans' => $karyawans,
             'user' => $user,
             'sort' => $sort
->>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
@@ -73,14 +59,6 @@ class KaryawanController extends Controller {
         Auth::requireRole('HRD');
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-<<<<<<< HEAD
-            $data = [
-                'ID_Departemen' => $this->input('ID_Departemen'),
-                'Nama_Lengkap' => $this->input('Nama_Lengkap'),
-                'Tgl_Lahir' => $this->input('Tgl_Lahir'),
-                'Tgl_Masuk' => $this->input('Tgl_Masuk'),
-                'Email_Kantor' => $this->input('Email_Kantor'),
-=======
             $namaLengkap = $this->input('Nama_Lengkap');
             $role = $this->input('role', 'Karyawan');
             
@@ -118,7 +96,6 @@ class KaryawanController extends Controller {
                 'Tgl_Lahir' => $this->input('Tgl_Lahir'),
                 'Tgl_Masuk' => $this->input('Tgl_Masuk'),
                 'Email_Kantor' => $emailKantor,
->>>>>>> 29c4acf (initial commit project kepegawaian)
                 'Alamat' => $this->input('Alamat'),
                 'Status_Kerja' => $this->input('Status_Kerja', 'Aktif')
             ];
@@ -126,8 +103,6 @@ class KaryawanController extends Controller {
             $karyawanModel = new Karyawan();
             $karyawanId = $karyawanModel->create($data);
             
-<<<<<<< HEAD
-=======
             // Buat user login secara otomatis
             $userModel = new User();
             $password = 'password123'; // Default password untuk karyawan baru
@@ -141,18 +116,14 @@ class KaryawanController extends Controller {
             
             $userModel->create($userData);
             
->>>>>>> 29c4acf (initial commit project kepegawaian)
             // Update jumlah karyawan di departemen
             $departmentModel = new Department();
             $departmentModel->updateJumlahKaryawan($data['ID_Departemen']);
             
-<<<<<<< HEAD
-=======
             // Simpan info password untuk ditampilkan
             $_SESSION['new_user_password'] = $password;
             $_SESSION['new_user_email'] = $emailKantor;
             
->>>>>>> 29c4acf (initial commit project kepegawaian)
             $this->redirect('/Kepegawaian/karyawan');
         }
         
@@ -230,8 +201,6 @@ class KaryawanController extends Controller {
                 $departemenId = $karyawan['ID_Departemen'];
                 $karyawanModel->delete($id);
                 
-<<<<<<< HEAD
-=======
                 // Hapus user juga
                 $userModel = new User();
                 $userData = $userModel->getByKaryawanId($id);
@@ -239,7 +208,6 @@ class KaryawanController extends Controller {
                     $userModel->delete($userData['ID_User']);
                 }
                 
->>>>>>> 29c4acf (initial commit project kepegawaian)
                 // Update jumlah karyawan
                 $departmentModel = new Department();
                 $departmentModel->updateJumlahKaryawan($departemenId);

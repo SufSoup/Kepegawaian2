@@ -2,12 +2,9 @@
 
 require_once __DIR__ . '/../../core/Controller.php';
 require_once __DIR__ . '/../../helpers/Auth.php';
-<<<<<<< HEAD
-=======
 require_once __DIR__ . '/../models/karyawan.php';
 require_once __DIR__ . '/../models/department.php';
 require_once __DIR__ . '/../models/pengajuancuti.php';
->>>>>>> 29c4acf (initial commit project kepegawaian)
 
 class AuthController extends Controller {
     
@@ -18,16 +15,6 @@ class AuthController extends Controller {
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-<<<<<<< HEAD
-            $username = $this->input('username');
-            $password = $this->input('password');
-            
-            if (Auth::login($username, $password)) {
-                $user = Auth::user();
-                $this->redirect('/Kepegawaian/dashboard');
-            } else {
-                $error = 'Username atau password salah';
-=======
             $email = $this->input('username');
             $password = $this->input('password');
             
@@ -36,7 +23,6 @@ class AuthController extends Controller {
                 $this->redirect('/Kepegawaian/dashboard');
             } else {
                 $error = 'Email atau password salah';
->>>>>>> 29c4acf (initial commit project kepegawaian)
                 $this->view('auth/login', ['error' => $error]);
                 return;
             }
@@ -74,10 +60,6 @@ class AuthController extends Controller {
     public function hrdDashboard() {
         Auth::requireRole('HRD');
         
-<<<<<<< HEAD
-        $this->view('dashboard/hrd_dashboard', [
-            'user' => Auth::user()
-=======
         // Ambil statistik untuk dashboard
         $karyawanModel = new Karyawan();
         $departmentModel = new Department();
@@ -94,17 +76,12 @@ class AuthController extends Controller {
         $this->view('dashboard/hrd_dashboard', [
             'user' => Auth::user(),
             'stats' => $stats
->>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
     public function supervisorDashboard() {
         Auth::requireRole('Supervisor');
         
-<<<<<<< HEAD
-        $this->view('dashboard/supervisor_dashboard', [
-            'user' => Auth::user()
-=======
         // Ambil statistik untuk dashboard
         $pengajuanCutiModel = new PengajuanCuti();
         
@@ -117,19 +94,12 @@ class AuthController extends Controller {
         $this->view('dashboard/supervisor_dashboard', [
             'user' => Auth::user(),
             'stats' => $stats
->>>>>>> 29c4acf (initial commit project kepegawaian)
         ]);
     }
     
     public function karyawanDashboard() {
         Auth::requireRole('Karyawan');
         
-<<<<<<< HEAD
-        $this->view('dashboard/karyawan_dashboard', [
-            'user' => Auth::user()
-        ]);
-    }
-=======
         $user = Auth::user();
         
         // Ambil data biodata karyawan
@@ -166,7 +136,6 @@ class AuthController extends Controller {
             return $item['Status_Pengajuan'] === $status;
         }));
     }
->>>>>>> 29c4acf (initial commit project kepegawaian)
 }
 
 

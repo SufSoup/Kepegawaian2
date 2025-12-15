@@ -13,15 +13,12 @@ class User extends Model {
     public function getByKaryawanId($karyawanId) {
         return $this->whereFirst('ID_Karyawan', $karyawanId);
     }
-<<<<<<< HEAD
-=======
     
     public function delete($id) {
         $db = Database::getInstance();
         $sql = "DELETE FROM {$this->table} WHERE {$this->primaryKey} = :id";
         return $db->query($sql, ['id' => $id]);
     }
->>>>>>> 29c4acf (initial commit project kepegawaian)
 }
 
 

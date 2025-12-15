@@ -28,15 +28,9 @@ ob_start();
                             <td colspan="6" class="text-center">Tidak ada data master cuti</td>
                         </tr>
                     <?php else: ?>
-<<<<<<< HEAD
-                        <?php foreach ($masterCutis as $mc): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($mc['ID_Master_Cuti']) ?></td>
-=======
                         <?php $no = 0; foreach ($masterCutis as $mc): $no++; ?>
                             <tr>
                                 <td><?= $no ?></td>
->>>>>>> 29c4acf (initial commit project kepegawaian)
                                 <td><?= htmlspecialchars($mc['Nama_Cuti']) ?></td>
                                 <td><?= htmlspecialchars($mc['Tipe_Cuti']) ?></td>
                                 <td><?= htmlspecialchars($mc['Jumlah_Hari'] ?? '-') ?> hari</td>

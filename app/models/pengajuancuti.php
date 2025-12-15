@@ -23,16 +23,10 @@ class PengajuanCuti extends Model {
     
     public function getByKaryawan($karyawanId) {
         $db = Database::getInstance();
-<<<<<<< HEAD
-        $sql = "SELECT pc.*, mc.Nama_Cuti, mc.Tipe_Cuti
-                FROM pengajuan_cuti pc
-                LEFT JOIN master_cuti mc ON pc.ID_Master_Cuti = mc.ID_Master_Cuti
-=======
         $sql = "SELECT pc.*, mc.Nama_Cuti, mc.Tipe_Cuti, ka.Nama_Lengkap as Nama_Penyetuju
                 FROM pengajuan_cuti pc
                 LEFT JOIN master_cuti mc ON pc.ID_Master_Cuti = mc.ID_Master_Cuti
                 LEFT JOIN karyawan ka ON pc.Approved_By = ka.ID_Karyawan
->>>>>>> 29c4acf (initial commit project kepegawaian)
                 WHERE pc.ID_Karyawan = :karyawan_id
                 ORDER BY pc.Tgl_Pengajuan DESC";
         $stmt = $db->query($sql, ['karyawan_id' => $karyawanId]);
@@ -69,8 +63,6 @@ class PengajuanCuti extends Model {
         $stmt = $db->query($sql, ['id' => $id]);
         return $stmt->fetch();
     }
-<<<<<<< HEAD
-=======
     
     /**
      * Hitung total hari cuti yang sudah disetujui dalam tahun ini
@@ -100,7 +92,16 @@ class PengajuanCuti extends Model {
         
         return ($totalCutiTahunIni + $jumlahHari) <= $maksimalCutiTahunan;
     }
->>>>>>> 29c4acf (initial commit project kepegawaian)
+    
+    /**
+     * Hapus semua pengajuan cuti
+     */
+    public function deleteAll() {
+        $db = Database::getInstance();
+        $sql = "DELETE FROM pengajuan_cuti";
+        $db->query($sql);
+        return true;
+    }
 }
 
 

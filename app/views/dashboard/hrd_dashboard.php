@@ -22,32 +22,6 @@ ob_start();
     <div class="col-md-9">
         <div class="card">
             <div class="card-header bg-primary text-white">
-<<<<<<< HEAD
-                <h4>Halaman Utama (HRD)</h4>
-            </div>
-            <div class="card-body">
-                <h5>Selamat datang, <?= htmlspecialchars($user['nama'] ?? $user['username']) ?>!</h5>
-                <p>Anda sedang berada di dashboard HRD. Silakan pilih menu di sebelah kiri untuk mengelola data.</p>
-                
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <div class="card bg-info text-white">
-                            <div class="card-body">
-                                <h6>Manajemen Karyawan</h6>
-                                <p>Kelola data karyawan, tambah, edit, atau hapus data karyawan.</p>
-                                <a href="/Kepegawaian/karyawan" class="btn btn-light btn-sm">Kelola</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h6>Manajemen Departemen</h6>
-                                <p>Kelola data departemen perusahaan.</p>
-                                <a href="/Kepegawaian/department" class="btn btn-light btn-sm">Kelola</a>
-                            </div>
-                        </div>
-=======
                 <h4>Dashboard HRD</h4>
             </div>
             <div class="card-body">
@@ -57,7 +31,7 @@ ob_start();
         
         <!-- Statistik Section -->
         <div class="row mt-3">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card bg-primary text-white">
                     <div class="card-body text-center">
                         <h6>Total Karyawan</h6>
@@ -65,20 +39,11 @@ ob_start();
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card bg-success text-white">
                     <div class="card-body text-center">
                         <h6>Total Departemen</h6>
                         <h2><?= $stats['total_departemen'] ?? 0 ?></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-info text-white">
-                    <div class="card-body text-center">
-                        <h6>Pengajuan Cuti</h6>
-                        <h2><?= $stats['pengajuan_pending'] ?? 0 ?></h2>
-                        <small>Menunggu (Pending)</small>
                     </div>
                 </div>
             </div>
@@ -89,39 +54,30 @@ ob_start();
             <div class="card-header bg-warning text-dark">
                 <h6 class="mb-0">Ringkasan Pengajuan Cuti</h6>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <p>Pending: <span class="badge bg-warning"><?= $stats['pengajuan_pending'] ?? 0 ?></span></p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Disetujui: <span class="badge bg-success"><?= $stats['pengajuan_disetujui'] ?? 0 ?></span></p>
-                    </div>
-                    <div class="col-md-4">
-                        <p>Ditolak: <span class="badge bg-danger"><?= $stats['pengajuan_ditolak'] ?? 0 ?></span></p>
-                    </div>
-                </div>
-            </div>
         </div>
         
-        <!-- Akses Cepat -->
         <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="card bg-info text-white">
-                    <div class="card-body">
-                        <h6>Manajemen Karyawan</h6>
-                        <p>Kelola data karyawan, tambah, edit, atau hapus data karyawan.</p>
-                        <a href="/Kepegawaian/karyawan" class="btn btn-light btn-sm">Buka</a>
+            <div class="col-md-4">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <h6>Pengajuan Pending</h6>
+                        <h2><?= $stats['pengajuan_pending'] ?? 0 ?></h2>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h6>Manajemen Departemen</h6>
-                        <p>Kelola data departemen perusahaan.</p>
-                        <a href="/Kepegawaian/department" class="btn btn-light btn-sm">Buka</a>
->>>>>>> 29c4acf (initial commit project kepegawaian)
+            <div class="col-md-4">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <h6>Pengajuan Disetujui</h6>
+                        <h2><?= $stats['pengajuan_disetujui'] ?? 0 ?></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-danger text-white">
+                    <div class="card-body text-center">
+                        <h6>Pengajuan Ditolak</h6>
+                        <h2><?= $stats['pengajuan_ditolak'] ?? 0 ?></h2>
                     </div>
                 </div>
             </div>

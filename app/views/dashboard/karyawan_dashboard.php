@@ -20,13 +20,6 @@ ob_start();
     <div class="col-md-9">
         <div class="card">
             <div class="card-header bg-primary text-white">
-<<<<<<< HEAD
-                <h4>Halaman Utama (Karyawan)</h4>
-            </div>
-            <div class="card-body">
-                <h5>Selamat datang, <?= htmlspecialchars($user['nama'] ?? $user['username']) ?>!</h5>
-                <p>Anda sedang berada di dashboard Karyawan. Silakan pilih menu di sebelah kiri.</p>
-=======
                 <h4>Dashboard Karyawan</h4>
             </div>
             <div class="card-body">
@@ -82,7 +75,6 @@ ob_start();
                         <p>Ditolak: <span class="badge bg-danger"><?= $stats['total_cuti_ditolak'] ?></span></p>
                     </div>
                 </div>
->>>>>>> 29c4acf (initial commit project kepegawaian)
             </div>
         </div>
     </div>
