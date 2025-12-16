@@ -234,17 +234,32 @@ class PengajuanCutiController extends Controller {
     }
     
     public function delete($id) {
-        Auth::requireRole('HRD');
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $pengajuanCutiModel = new PengajuanCuti();
-            $pengajuanCutiModel->delete($id);
-            
-            $this->redirect('/Kepegawaian/pengajuancuti');
-        }
+        Auth::requireAuth();
         
         $pengajuanCutiModel = new PengajuanCuti();
         $pengajuan = $pengajuanCutiModel->findWithDetails($id);
+        
+        if (!$pengajuan) {
+            $this->redirect('/Kepegawaian/pengajuancuti');
+        }
+        
+        $user = Auth::user();
+        
+        // Karyawan hanya bisa hapus pengajuan mereka sendiri dengan status Pending
+        if ($user['role'] === 'Karyawan') {
+            if ($pengajuan['ID_Karyawan'] != $user['karyawan_id'] || $pengajuan['Status_Pengajuan'] !== 'Pending') {
+                $this->redirect('/Kepegawaian/pengajuancuti');
+            }
+        }
+        // HRD dan Supervisor bisa hapus semua
+        elseif ($user['role'] !== 'HRD' && $user['role'] !== 'Supervisor') {
+            $this->redirect('/Kepegawaian/pengajuancuti');
+        }
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $pengajuanCutiModel->delete($id);
+            $this->redirect('/Kepegawaian/pengajuancuti');
+        }
         
         $this->view('pengajuancuti/delete', [
             'pengajuan' => $pengajuan,

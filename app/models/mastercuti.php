@@ -8,7 +8,7 @@ class MasterCuti extends Model {
     
     public function getAllActive() {
         $db = Database::getInstance();
-        $sql = "SELECT * FROM master_cuti ORDER BY Nama_Cuti";
+        $sql = "SELECT * FROM master_cuti WHERE Status = 'Aktif' ORDER BY Nama_Cuti";
         $stmt = $db->query($sql);
         return $stmt->fetchAll();
     }

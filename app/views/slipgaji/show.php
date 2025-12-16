@@ -3,79 +3,63 @@ $title = 'Detail Slip Gaji';
 ob_start();
 ?>
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header bg-info text-white">
-                <h4>Slip Gaji</h4>
+<div class="max-w-3xl mx-auto space-y-4">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h3 class="text-lg font-semibold">Slip Gaji</h3>
+                <p class="text-sm text-slate-500"><?= htmlspecialchars($slipGaji['Nama_Lengkap']) ?> — <?= date('F Y', mktime(0,0,0, $slipGaji['Bulan'], 1, $slipGaji['Tahun'])) ?></p>
             </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <h6>Nama Karyawan</h6>
-                        <p><?= htmlspecialchars($slipGaji['Nama_Lengkap']) ?></p>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Periode</h6>
-                        <p><?= date('F Y', mktime(0, 0, 0, $slipGaji['Bulan'], 1, $slipGaji['Tahun'])) ?></p>
-                    </div>
-                </div>
-                
-                <hr>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Gaji Pokok</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Gaji_Pokok'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Tunjangan Transportasi</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Tunjangan_Transportasi'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Tunjangan Kesehatan</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Tunjangan_Kesehatan'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Tunjangan Lainnya</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Tunjangan_Lainnya'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2" style="background-color: #f9f9f9; padding: 10px; border-radius: 5px;">
-                    <div class="col-md-6"><strong>Total Penerimaan</strong></div>
-                    <div class="col-md-6 text-end"><strong>Rp <?= number_format($slipGaji['Total_Penerimaan'], 0, ',', '.') ?></strong></div>
-                </div>
-                
-                <hr>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Potongan Tetap</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Potongan_Tetap'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2">
-                    <div class="col-md-6"><strong>Potongan Lainnya</strong></div>
-                    <div class="col-md-6 text-end">Rp <?= number_format($slipGaji['Potongan_Lainnya'], 0, ',', '.') ?></div>
-                </div>
-                
-                <div class="row mb-2" style="background-color: #f9f9f9; padding: 10px; border-radius: 5px;">
-                    <div class="col-md-6"><strong>Total Potongan</strong></div>
-                    <div class="col-md-6 text-end"><strong>Rp <?= number_format($slipGaji['Total_Potongan'], 0, ',', '.') ?></strong></div>
-                </div>
-                
-                <hr>
-                
-                <div class="row mb-2" style="background-color: #e8f5e9; padding: 15px; border-radius: 5px; font-size: 1.1em;">
-                    <div class="col-md-6"><strong>Gaji Bersih</strong></div>
-                    <div class="col-md-6 text-end"><strong style="color: green;">Rp <?= number_format($slipGaji['Gaji_Bersih'], 0, ',', '.') ?></strong></div>
-                </div>
-                
-                <div class="d-flex justify-content-between">
-                    <a href="/Kepegawaian/slipgaji" class="btn btn-secondary">Kembali</a>
-                    <button onclick="window.print()" class="btn btn-primary">Cetak</button>
-                </div>
+            <div class="flex items-center gap-2">
+                <a href="/Kepegawaian/slipgaji" class="inline-flex items-center px-3 py-2 bg-slate-100 text-slate-700 rounded-md">Kembali</a>
+                <button onclick="window.print()" class="inline-flex items-center px-3 py-2 bg-indigo-600 text-white rounded-md">Cetak</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Gaji Pokok</div>
+                <div class="text-sm text-right font-medium">Rp <?= number_format($slipGaji['Gaji_Pokok'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Tunjangan Transportasi</div>
+                <div class="text-sm text-right">Rp <?= number_format($slipGaji['Tunjangan_Transportasi'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Tunjangan Kesehatan</div>
+                <div class="text-sm text-right">Rp <?= number_format($slipGaji['Tunjangan_Kesehatan'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Tunjangan Lainnya</div>
+                <div class="text-sm text-right">Rp <?= number_format($slipGaji['Tunjangan_Lainnya'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded-md grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-700 font-medium">Total Penerimaan</div>
+                <div class="text-sm text-right font-semibold">Rp <?= number_format($slipGaji['Total_Penerimaan'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Potongan Tetap</div>
+                <div class="text-sm text-right">Rp <?= number_format($slipGaji['Potongan_Tetap'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-600">Potongan Lainnya</div>
+                <div class="text-sm text-right">Rp <?= number_format($slipGaji['Potongan_Lainnya'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="bg-slate-50 p-3 rounded-md grid grid-cols-2 gap-4">
+                <div class="text-sm text-slate-700 font-medium">Total Potongan</div>
+                <div class="text-sm text-right font-semibold">Rp <?= number_format($slipGaji['Total_Potongan'], 0, ',', '.') ?></div>
+            </div>
+
+            <div class="bg-emerald-50 p-4 rounded-md grid grid-cols-2 gap-4">
+                <div class="text-base text-slate-800 font-semibold">Gaji Bersih</div>
+                <div class="text-base text-right font-semibold text-emerald-800">Rp <?= number_format($slipGaji['Gaji_Bersih'], 0, ',', '.') ?></div>
             </div>
         </div>
     </div>

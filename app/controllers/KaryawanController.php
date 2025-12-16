@@ -158,9 +158,14 @@ class KaryawanController extends Controller {
                 'Nama_Lengkap' => $this->input('Nama_Lengkap'),
                 'Tgl_Lahir' => $this->input('Tgl_Lahir'),
                 'Tgl_Masuk' => $this->input('Tgl_Masuk'),
-                'Email_Kantor' => $this->input('Email_Kantor'),
                 'Alamat' => $this->input('Alamat')
             ];
+            
+            // Hanya update Email_Kantor jika ada input (jangan set ke kosong)
+            $emailKantor = $this->input('Email_Kantor');
+            if (!empty($emailKantor)) {
+                $data['Email_Kantor'] = $emailKantor;
+            }
             
             // HRD bisa edit semua termasuk departemen dan status
             if ($user['role'] === 'HRD') {
